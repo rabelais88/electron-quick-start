@@ -1,5 +1,13 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+import {app, BrowserWindow} from 'electron';
+import dotenv from 'dotenv';
+import {enableLiveReload} from 'electron-compile';
+ 
+dotenv.config();
+
+if (process.env.NODE_ENV === 'development') {
+  enableLiveReload({ strategy: 'react-hmr '}); // react hot reload enable
+}
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
