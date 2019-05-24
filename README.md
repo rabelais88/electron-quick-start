@@ -27,6 +27,12 @@ cd electron-quick-start
 npm install
 # Run the app
 npm start
+
+# Every time you run "npm install", run this:
+./node_modules/.bin/electron-rebuild
+
+# On Windows if you have trouble, try:
+.\node_modules\.bin\electron-rebuild.cmd
 ```
 
 Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.

@@ -1,25 +1,39 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+require('electron-reload')(__dirname)
+
 function createWindow () {
+  console.log('creating main window');
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
       nodeIntegration: true
-    }
+    },
+    show: false,
   })
+
+
+  installExtension(REACT_DEVELOPER_TOOLS)
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((err) => console.log('An error occurred: ', err));
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+  })
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -28,6 +42,8 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+
 }
 
 // This method will be called when Electron has finished
